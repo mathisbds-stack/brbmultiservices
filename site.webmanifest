@@ -1,0 +1,14 @@
+{
+  "name": "BRB Multiservices",
+  "short_name": "BRB",
+  "description": "Artisan multiservices à [Ville] et alentours",
+  "lang": "fr",
+  "start_url": "/",
+  "display": "browser",
+  "background_color": "#FFFFFF",
+  "theme_color": "#102A4D",
+  "icons": [
+    { "src": "assets/img/logo/icone-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any" },
+    { "src": "assets/img/logo/apple-touch-icon-180.png", "sizes": "180x180", "type": "image/png" }
+  ]
+}

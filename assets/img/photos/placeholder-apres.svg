@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 900" width="1200" height="900">
+  <rect width="1200" height="900" fill="#F6F4F0"/>
+  <rect x="24" y="24" width="1152" height="852" fill="none" stroke="#B9B3A8" stroke-width="4" stroke-dasharray="18 14"/>
+  <g fill="none" stroke="#102A4D" stroke-width="10" stroke-linecap="round" stroke-linejoin="round" transform="translate(510 330)">
+    <path d="M20 40h40l20-28h20l20 28h40a20 20 0 0 1 20 20v100a20 20 0 0 1-20 20H20a20 20 0 0 1-20-20V60a20 20 0 0 1 20-20z"/>
+    <circle cx="90" cy="110" r="38"/>
+  </g>
+  <text x="600" y="600" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="44" font-weight="700" fill="#102A4D">Photo APRÈS à remplacer</text>
+</svg>
