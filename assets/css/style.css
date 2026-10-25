@@ -685,3 +685,12 @@ strong { font-weight: 800; }
   *, *::before, *::after { transition: none !important; }
 }
 .field .hint-inline { font-weight: 500; color: var(--text-muted); }
+
+/* Adresses longues (email) : retour à la ligne plutôt que débordement */
+.hero-grid > *,
+.contact-grid > *,
+.footer-grid > *,
+.info-list li > div { min-width: 0; }
+.info-list .v,
+.footer-list a,
+.prose a { overflow-wrap: anywhere; }

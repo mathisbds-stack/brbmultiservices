@@ -36,17 +36,14 @@ Utilisez le « Rechercher / Remplacer dans tous les fichiers » de votre éditeu
 
 ### Informations de l'entreprise (toutes les pages)
 
+Déjà renseignés : téléphone `07 81 78 73 60` (liens `tel:+33781787360`), email `contact.brbmultiservices@gmail.com`, ville `Beaucaire` (code postal `30300`). Pour les changer plus tard, faites un « Rechercher / Remplacer » sur ces valeurs dans tous les fichiers.
+
+Reste à compléter :
+
 | Placeholder | Où | Remarque |
 |---|---|---|
 | `[Prénom NOM]` | Accueil, mentions légales, JSON-LD | Gérant |
-| `[06 00 00 00 00]` | Partout (texte affiché) | Numéro affiché |
-| `tel:+33600000000` | Partout (liens d'appel) | **À remplacer aussi** : format international sans espaces, ex. `tel:+33612345678` |
-| `+33600000000` | JSON-LD de `index.html` | Même format |
-| `[contact@brbmultiservices.fr]` | Partout (texte affiché) | |
-| `mailto:contact@brbmultiservices.fr` / `contact@brbmultiservices.fr` | Liens email, JSON-LD, commentaire du formulaire | Adresse réelle, sans crochets |
-| `[Ville]` | Titres, meta descriptions, textes, JSON-LD | Ville principale (important pour le référencement local) |
 | `[Commune 1]` … `[Commune 6]`, `[liste des communes]` | Accueil (zone), contact, JSON-LD | Ajoutez ou retirez des `<li>` selon besoin |
-| `[Code postal]` | JSON-LD | |
 | `[Service 1]` … `[Service 4]` | Partout (menus, cartes, titres, formulaire, JSON-LD) | Noms des services |
 | `[numéro]` (après « SIRET ») | Footer, mentions légales | |
 | `[horaires]` | Accueil, contact, footer | Texte libre, ex. « Lun-ven 8h-18h » |
