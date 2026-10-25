@@ -694,3 +694,42 @@ strong { font-weight: 800; }
 .info-list .v,
 .footer-list a,
 .prose a { overflow-wrap: anywhere; }
+
+/* Grilles : 6 prestations, 4 engagements */
+@media (min-width: 1040px) { .cards--3 { grid-template-columns: repeat(3, 1fr); } }
+@media (min-width: 600px) { .features--4 { grid-template-columns: repeat(2, 1fr); } }
+@media (min-width: 1040px) { .features--4 { grid-template-columns: repeat(4, 1fr); } }
+
+.hero-lead { font-size: 1.1875rem; color: rgba(255, 255, 255, .9); max-width: 34em; margin-bottom: 1rem; }
+
+/* Questions fréquentes (details/summary, sans JavaScript) */
+.faq { display: grid; gap: .75rem; max-width: 820px; }
+.faq-item {
+  background: var(--white);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+}
+.faq-item summary {
+  position: relative;
+  padding: 1.125rem 3rem 1.125rem 1.25rem;
+  font-weight: 800;
+  color: var(--navy);
+  cursor: pointer;
+  list-style: none;
+}
+.faq-item summary::-webkit-details-marker { display: none; }
+.faq-item summary::after {
+  content: "+";
+  position: absolute;
+  right: 1.25rem;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: var(--orange-text);
+}
+.faq-item[open] summary::after { content: "–"; }
+.faq-item p { margin: 0; padding: 0 1.25rem 1.25rem; color: var(--text-muted); }
+
+/* Lien dans un paragraphe du footer : souligné pour se distinguer du texte */
+.site-footer p a { text-decoration: underline; }

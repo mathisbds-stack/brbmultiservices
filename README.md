@@ -16,6 +16,7 @@ Site statique en HTML, CSS et JavaScript vanilla. Il n'y a ni framework ni étap
 ├── robots.txt
 ├── site.webmanifest
 ├── netlify.toml             Configuration Netlify (aucun build)
+├── outils/generer.py        Génère les pages HTML à partir des informations de l'entreprise
 └── assets/
     ├── css/style.css        Feuille de style unique
     ├── js/main.js           Menu mobile, année du footer, pré-sélection du formulaire
@@ -24,76 +25,44 @@ Site statique en HTML, CSS et JavaScript vanilla. Il n'y a ni framework ni étap
         └── photos/          Photos des services et des chantiers
 ```
 
-## 1. Placeholders à remplacer
+## 1. Modifier les informations
 
-Toutes les valeurs à personnaliser sont **entre crochets** `[…]`. Pour les retrouver toutes :
+Les pages HTML sont **générées** par `outils/generer.py`. Toutes les informations s'y trouvent, en haut du fichier :
+
+- `INFOS` : nom, gérant, téléphone, email, horaires, ville, SIRET, adresse, domaine, hébergeur, médiateur ;
+- `ZONE` et `ZONE_TEXTE` : communes desservies ;
+- `SERVICES` : les 6 prestations (nom, icône, résumé, description, exemples) ;
+- `ENGAGEMENTS` (« Pourquoi nous choisir ») et `FAQ`.
+
+Après une modification :
 
 ```bash
-grep -rn "\[" --include="*.html" .
+python3 outils/generer.py
 ```
 
-Utilisez le « Rechercher / Remplacer dans tous les fichiers » de votre éditeur (VS Code : `Ctrl+Maj+H`).
+puis commitez et poussez : Netlify remet le site à jour. Ne modifiez pas les pages HTML à la main, elles seraient écrasées à la prochaine génération (le CSS et le JS, eux, se modifient directement).
 
-### Informations de l'entreprise (toutes les pages)
+Le contenu reprend celui de la page Multiservices du site de la maison mère, [Maison BRB](https://maisonbrb.fr/).
 
-Déjà renseignés : téléphone `07 81 78 73 60` (liens `tel:+33781787360`), email `contact.brbmultiservices@gmail.com`, ville `Beaucaire` (code postal `30300`), gérant `Mathis`, horaires `8h – 19h`. Pour les changer plus tard, faites un « Rechercher / Remplacer » sur ces valeurs dans tous les fichiers.
+### Reste à compléter
 
-Reste à compléter :
-
-| Placeholder | Où | Remarque |
-|---|---|---|
-| `Mathis [NOM]` | Mentions légales | Nom de famille du gérant, obligatoire pour le directeur de la publication |
-| `[Commune 1]` … `[Commune 6]`, `[liste des communes]` | Accueil (zone), contact, JSON-LD | Ajoutez ou retirez des `<li>` selon besoin |
-| `[Service 1]` … `[Service 4]` | Partout (menus, cartes, titres, formulaire, JSON-LD) | Noms des services |
-| `[numéro]` (après « SIRET ») | Footer, mentions légales | |
-| `[Mo-Fr 08:00-18:00]` | JSON-LD de `index.html` | Jours d'ouverture à préciser, au format schema.org, ex. `Mo-Sa 08:00-19:00` |
-
-### Textes
-
-| Placeholder | Page |
+| Élément | Où |
 |---|---|
-| Phrase d'accroche du hero (« Un seul artisan pour tous vos travaux, faits proprement. ») | `index.html` — proposition de texte, à adapter |
-| `[Une phrase qui présente l'ensemble de vos services…]` | `index.html` |
-| `[Description courte du service N…]` | `index.html` (cartes) |
-| `[Argument 1]` à `[Argument 3]` et leurs descriptions | `index.html` — « Pourquoi nous choisir ». Ne mettez que des éléments vérifiables (pas d'avis ni de chiffres inventés) |
-| `[Une phrase d'introduction…]`, `[Présentez le service N…]`, `[Prestation incluse N]` | `services.html` |
-| `[Titre du chantier N]`, `[Service] — [Commune]`, descriptions | `realisations.html` |
-| Textes `alt` des photos `[Description de la photo…]` | `services.html`, `realisations.html` |
-
-Les icônes des services (marteau, rouleau, maison, niveau) sont génériques : remplacez le SVG d'une carte si une autre icône correspond mieux au métier. Pensez à faire la même modification dans `services.html`.
-
-### Mentions légales (`mentions-legales.html`)
-
-`[forme juridique]`, `[montant]` (capital), `[adresse complète]`, `[RNE / RCS / Répertoire des métiers]`, `[numéro]` de TVA, `[assureur…]`, `[Nom de l'hébergeur]`, `[Adresse de l'hébergeur]`, `[Téléphone ou site web de l'hébergeur]`, `[nom du médiateur]` (obligatoire pour une clientèle de particuliers), `[3 ans]` (durée de conservation), `[date]` de mise à jour.
-
-Pour Netlify, l'hébergeur est : *Netlify, Inc., 512 2nd Street, Suite 200, San Francisco, CA 94107, États-Unis — www.netlify.com* (à vérifier sur leur site au moment de la mise en ligne). Pour OVH ou o2switch, reprenez les coordonnées indiquées sur leur propre page de mentions légales.
-
-### Nom de domaine
-
-Le site est configuré pour le domaine `https://brbmultiservices.fr/` (sans `www`). En cas de changement de domaine, il faut le modifier dans :
-
-- les balises `canonical` et `og:url` / `og:image` de chaque page HTML ;
-- le JSON-LD de `index.html` ;
-- `sitemap.xml` et `robots.txt`.
+| Médiateur de la consommation (obligatoire avec une clientèle de particuliers) | `INFOS["mediateur"]` |
+| Photos des prestations | voir ci-dessous |
+| Chantiers avant / après : photos, titre, prestation, commune, description | fonction `realisations()` de `outils/generer.py` |
 
 ## 2. Ajouter les photos
 
 1. Préparez des photos **au format paysage 4:3** (ex. 1200 × 900 px), en JPG ou WebP, de moins de 200 Ko chacune. Des outils gratuits comme [Squoosh](https://squoosh.app) permettent de les redimensionner et compresser.
-2. Nommez-les simplement, sans espaces ni accents : `service-1.jpg`, `chantier-1-avant.jpg`, `chantier-1-apres.jpg`…
+2. Nommez-les exactement ainsi (en `.jpg` ou `.webp`) :
+   - prestations : `montage-meubles`, `fixations-murales`, `petites-reparations`, `bricolage-quotidien`, `amenagement-rangement`, `aide-emmenagement` ;
+   - réalisations : `chantier-1-avant`, `chantier-1-apres`, `chantier-2-avant`… jusqu'à `chantier-6-apres`.
 3. Déposez-les dans `assets/img/photos/`.
-4. Dans le HTML, remplacez le chemin de l'image provisoire et décrivez la photo dans `alt` :
+4. Lancez `python3 outils/generer.py` : chaque photo présente remplace automatiquement l'image provisoire correspondante.
+5. Pour les réalisations, renseignez aussi le titre, la prestation, la commune, la description et le texte `alt` des photos dans la fonction `realisations()` de `outils/generer.py`.
 
-```html
-<!-- avant -->
-<img src="assets/img/photos/placeholder.svg" width="1200" height="900" loading="lazy" decoding="async" alt="[Description de la photo : …]">
-<!-- après -->
-<img src="assets/img/photos/service-1.jpg" width="1200" height="900" loading="lazy" decoding="async" alt="Salle de bains rénovée à Ville : douche à l'italienne et faïence blanche">
-```
-
-Gardez `width`/`height` (ils évitent les décalages au chargement) et `loading="lazy"`. Si votre photo n'est pas en 4:3, ce n'est pas grave : elle est recadrée automatiquement (`object-fit: cover`), mais indiquez ses vraies dimensions.
-
-- **Services** (`services.html`) : une photo par bloc `<figure class="photo service-media">`.
-- **Réalisations** (`realisations.html`) : chaque chantier a une image `placeholder-avant.svg` et une `placeholder-apres.svg`. Pour ajouter un chantier, copiez un bloc `<li>…</li>` complet ; pour en retirer un, supprimez son `<li>`.
+Si une photo n'est pas en 4:3, elle est recadrée automatiquement (`object-fit: cover`).
 
 Une fois toutes les photos en place, les fichiers `placeholder*.svg` peuvent être supprimés.
 
@@ -159,6 +128,6 @@ Le lien « Demander un devis » de chaque service ouvre `contact.html?besoin=ser
 
 - **Couleurs** : marine `#102A4D`, orange `#E8711A`, orange texte `#C45508` (petit texte sur fond **blanc** uniquement : sur le blanc cassé `#F6F4F0`, son contraste passe sous le seuil AA), orange clair `#F28C38` (texte sur fond marine). Les boutons orange portent un texte marine (contraste 4,6:1) : du texte blanc sur cet orange ne passerait pas le seuil AA.
 - **Police** : Archivo via Google Fonts. Pour éviter tout transfert vers Google (RGPD), vous pouvez héberger la police vous-même : téléchargez les fichiers `.woff2` (par exemple avec [google-webfonts-helper](https://gwfh.mranftl.com/fonts/archivo)), placez-les dans `assets/fonts/`, déclarez-les avec `@font-face` en haut de `style.css`, puis supprimez les trois balises Google Fonts du `<head>` de chaque page et le paragraphe correspondant dans la politique de confidentialité.
-- **Header et footer** sont recopiés dans chaque page (pas d'étape de build). Une modification du menu ou des coordonnées doit donc être faite dans les 6 fichiers HTML : utilisez un « Rechercher / Remplacer dans tous les fichiers ».
+- **Header et footer** sont communs à toutes les pages et définis une seule fois dans `outils/generer.py` (fonctions `header()` et `footer()`).
 - **Sans JavaScript**, le menu reste accessible (il s'affiche sous le logo) et le formulaire fonctionne.
 - Scores Lighthouse mesurés en local (mobile, sans compression serveur) : performance 92 à 95, accessibilité 100, bonnes pratiques 100, SEO 100. Une fois les vraies photos ajoutées, vérifiez qu'elles restent légères.
