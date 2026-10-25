@@ -2,4 +2,4 @@ User-agent: *
 Allow: /
 Disallow: /merci.html
 
-Sitemap: https://www.brb-multiservices.fr/sitemap.xml
+Sitemap: https://brbmultiservices.fr/sitemap.xml

@@ -42,8 +42,8 @@ Utilisez le « Rechercher / Remplacer dans tous les fichiers » de votre éditeu
 | `[06 00 00 00 00]` | Partout (texte affiché) | Numéro affiché |
 | `tel:+33600000000` | Partout (liens d'appel) | **À remplacer aussi** : format international sans espaces, ex. `tel:+33612345678` |
 | `+33600000000` | JSON-LD de `index.html` | Même format |
-| `[contact@brb-multiservices.fr]` | Partout (texte affiché) | |
-| `mailto:contact@brb-multiservices.fr` / `contact@brb-multiservices.fr` | Liens email, JSON-LD, commentaire du formulaire | Adresse réelle, sans crochets |
+| `[contact@brbmultiservices.fr]` | Partout (texte affiché) | |
+| `mailto:contact@brbmultiservices.fr` / `contact@brbmultiservices.fr` | Liens email, JSON-LD, commentaire du formulaire | Adresse réelle, sans crochets |
 | `[Ville]` | Titres, meta descriptions, textes, JSON-LD | Ville principale (important pour le référencement local) |
 | `[Commune 1]` … `[Commune 6]`, `[liste des communes]` | Accueil (zone), contact, JSON-LD | Ajoutez ou retirez des `<li>` selon besoin |
 | `[Code postal]` | JSON-LD | |
@@ -74,7 +74,7 @@ Pour Netlify, l'hébergeur est : *Netlify, Inc., 512 2nd Street, Suite 200, San 
 
 ### Nom de domaine
 
-Le domaine `https://www.brb-multiservices.fr/` est utilisé comme valeur provisoire. Remplacez-le par le vrai domaine dans :
+Le site est configuré pour le domaine `https://brbmultiservices.fr/` (sans `www`). En cas de changement de domaine, il faut le modifier dans :
 
 - les balises `canonical` et `og:url` / `og:image` de chaque page HTML ;
 - le JSON-LD de `index.html` ;
@@ -149,7 +149,7 @@ Le lien « Demander un devis » de chaque service ouvre `contact.html?besoin=ser
 
 **Nom de domaine**
 
-1. **Domain management > Add a domain** : saisissez votre domaine (ex. `brb-multiservices.fr`).
+1. **Domain management > Add a domain** : saisissez `brbmultiservices.fr` et choisissez-le comme domaine principal (Netlify redirigera `www.brbmultiservices.fr` vers lui).
 2. Suivez les instructions DNS de Netlify chez votre registrar (OVH, Gandi…). Le certificat HTTPS est automatique.
 3. Remplacez le domaine provisoire dans les fichiers (voir plus haut), puis redéployez.
 
